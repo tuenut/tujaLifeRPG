@@ -1,3 +1,8 @@
+import json
+
+from collections import OrderedDict
+from hashlib import md5
+
 from quest.date import DateManager
 from quest.expirience import TaskExpirienseMixin
 
@@ -18,6 +23,8 @@ class QuestTask(TaskExpirienseMixin):
         self.__periodicity = periodicity
 
         self.__success = None
+
+        self.__quest_id = self.quest_id
 
     @property
     def title(self):
@@ -46,6 +53,17 @@ class QuestTask(TaskExpirienseMixin):
     @property
     def success(self):
         return self.__success
+
+    @property
+    def quest_id(self):
+        try:
+            return self.__quest_id
+        except AttributeError:
+            dump = self.dump()
+            ordered_dump = OrderedDict((key, dump[key]) for key in sorted(dump.keys()))
+            self.__quest_id = md5(json.dumps(ordered_dump))
+
+        return self.__quest_id
 
     def complete_quest(self, success: bool):
         """Завершаем квест и возвращаем опыт, если квест еще не завершен.
@@ -97,6 +115,7 @@ class QuestTask(TaskExpirienseMixin):
             'positive_motivation': self.positive_motivation_mult,
             'negative_motivation': self.negative_motivation_mult,
             'success': self.success,
+            'quest_id': self.quest_id
         }
         data.update(self.date_manager.dump())
 

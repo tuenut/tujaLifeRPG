@@ -6,6 +6,8 @@ class DateManager:
                  completion_date=None, **kwargs):
         self.__creation_date = creation_date or dt.now()
 
+        self.__start_date = None
+
         self.__expiration_date = expiration_date  # type: dt
 
         self.__last_edit_date = last_edit_date  # type: dt
@@ -16,6 +18,10 @@ class DateManager:
     def creation_date(self):
         """datetime: Дата создания задачи"""
         return self.__creation_date
+
+    @property
+    def start_date(self):
+        return self.__start_date
 
     @property
     def expiration_date(self):
@@ -45,7 +51,8 @@ class DateManager:
             'expiration_date': self.expiration_date,
             'last_edit_date': self.last_edit_date,
             'last_update_date': self.last_update_date,
-            'completion_date': self.completion_date
+            'completion_date': self.completion_date,
+            'start_date': self.start_date
         }
 
     def set_complete(self):
@@ -56,3 +63,6 @@ class DateManager:
 
     def set_last_update(self):
         self.__last_update_date = dt.now()
+
+    def set_start(self):
+        self.__start_date = dt.now()

@@ -1,6 +1,3 @@
-from collections import OrderedDict
-from hashlib import md5
-
 from .quests import QuestTask
 
 
@@ -40,6 +37,11 @@ class QuestJournal:
     def add_quest(self, quest_md5: str, quest_parameters: dict):
         self.__quests_collection.update({quest_md5: quest_parameters})
         return quest_md5
+
+    def create_quest(self, **kwargs):
+        # TODO может quest_id засунуть в dump и пусть dump отдает словарь типа {'%quest_id%': {**quest_parameters}}
+        quest = QuestTask(**kwargs)
+        self.add_quest(quest.quest_id, quest.dump())
 
     def remove_quest(self, quest_md5):
         return self.__quests_collection.pop(quest_md5)
