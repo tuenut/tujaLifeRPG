@@ -1,42 +1,28 @@
-from datetime import datetime as dt
-
-
-class QuestTask:
+class TaskExpirienseMixin:
     __BASE_EXPIRIENCE = 1.0
-
-    def __init__(self, title, positive_motivation, negative_motivation, description=None, difficulty=None,
-                 expiration_date=None, periodicity=None):
-        self.__creation_date = dt.now()
-        self.__title = title
-        self.__description = description or ''
-
-        self.__difficulty = difficulty or 1.0
-
-        self.positive_motivation_mult = positive_motivation
-        self.negative_motivation_mult = negative_motivation
-
-        self.__last_edit_date = None  # type: dt
-        self.__last_update_date = None  # type: dt
-        self.__completion_date = None  # type: dt
-        self.__expiration_date = expiration_date  # type: dt
-
-        self.__periodicity = periodicity
+    __difficulty = None
+    date_manager = None
 
     @property
-    def title(self):
-        return self.__title
+    def expirience(self):
+        """float: Суммарный опыт за выполнение задачи."""
+        base_exp = self.__BASE_EXPIRIENCE * self.difficulty
 
-    @title.setter
-    def title(self, value):
-        self.__title = value
+        exp_pm_weight = base_exp * self.positive_motivation_mult
+        exp_nm_weight = base_exp * self.negative_motivation_mult
+        exp_urgency_weight = base_exp * self.urgency_mult
+
+        total_expirience = base_exp - exp_pm_weight + exp_nm_weight + exp_urgency_weight
+
+        return total_expirience
 
     @property
-    def _base_expirience(self):
-        """float: Базовый опыт задачи.
+    def difficulty(self):
+        return self.__difficulty
 
-        Рассчитывается как условный базовый опыт за "единичную задачу", умноженный на коэффициент сложности.
-        """
-        return self.__BASE_EXPIRIENCE * self.__difficulty
+    @difficulty.setter
+    def difficulty(self, value):
+        self.__difficulty = value
 
     @property
     def positive_motivation_mult(self):
@@ -83,11 +69,12 @@ class QuestTask:
         Если задачу нужно сделать за месяц(31 день) - коэффициент 25%.
         Иначе коэффициент 0%. Задачи без срока выполнения, либо имеющие длинный срок выполнения выглядят малозначимыми.
         """
-        if self.expiration_date is None:
+        if self.date_manager.expiration_date is None:
             self.__urgency = 0.0
 
         else:
-            delta_hours = round((self.expiration_date - self.creation_date).total_seconds() // 3600)
+            delta_hours = round(
+                (self.date_manager.expiration_date - self.date_manager.creation_date).total_seconds() // 3600)
 
             if delta_hours <= 24 * 2:
                 self.__urgency = 1.0
@@ -102,76 +89,3 @@ class QuestTask:
                 self.__urgency = 0.0
 
         return self.__urgency
-
-    @property
-    def total_expirience(self):
-        """float: Суммарный опыт за выполнение задачи."""
-        return self._base_expirience + self.exp_nm_weight - self.exp_pm_weight + self.exp_urgency_weight
-
-    @property
-    def exp_pm_weight(self):
-        """float: Часть опыта, рассчитываемая от позитивной мотивации."""
-        return self._base_expirience * self.positive_motivation_mult
-
-    @property
-    def exp_nm_weight(self):
-        """float: Часть опыта, рассчитываемая от негативной мотивации."""
-        return self._base_expirience * self.negative_motivation_mult
-
-    @property
-    def exp_urgency_weight(self):
-        """float: Часть опыта, рассчитываемая от срочности."""
-        return self._base_expirience * self.urgency_mult
-
-    @property
-    def expiration_date(self):
-        """datetime or None: Срок выполнения задачи."""
-        return self.__expiration_date
-
-    @property
-    def creation_date(self):
-        """datetime: Дата создания задачи"""
-        return self.__creation_date
-
-    def dump(self):
-        return {
-            'title': self.title,
-            'description': self.__description,
-            'expirience': self.total_expirience,
-            'positive_motivation': self.positive_motivation_mult,
-            'negative_motivation': self.negative_motivation_mult,
-            'expiration_date': self.expiration_date,
-        }
-
-
-class BaseQuestsList:
-    """Класс-контейнер для задач.
-
-    Должен сожержать в себе список задач и операции, которые можно соверщить над задачами
-    """
-
-    def __init__(self):
-        self.__quests_list = []
-
-    @property
-    def quests(self):
-        return self.__quests_list
-
-    def add_quest(self, quest):
-        self.__quests_list.append(quest)
-
-    def remove_quest(self, quest):
-        index = self.__quests_list.index(quest)
-        self.__quests_list.pop(index)
-
-
-class QuestsList(BaseQuestsList):
-    pass
-
-
-class ActiveQuests(BaseQuestsList):
-    pass
-
-
-class CompletedQuests(BaseQuestsList):
-    pass

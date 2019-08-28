@@ -1,11 +1,4 @@
-from quests import QuestsList, ActiveQuests, CompletedQuests
-
-
-class QuestJournal:
-    def __init__(self):
-        self.active_quests = ActiveQuests()
-        self.completed_quests = CompletedQuests()
-        self.quests_collection = QuestsList()
+from quest.journal import QuestJournal
 
 
 class ExpirienceSystem:
@@ -52,6 +45,7 @@ class Character:
         return self.__expirience_sub_system.expirience
 
     def create_quest(self):
+        """создать новый квест и поместить его в коллекцию квестов."""
         pass
 
     def get_quest(self):
