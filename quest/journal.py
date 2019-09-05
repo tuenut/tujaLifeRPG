@@ -60,7 +60,7 @@ class QuestJournal:
         quest_index = self.__active_quests.index(quest)
         completion_quest = self.__active_quests.pop(quest_index)  # type: QuestTask
 
-        expirience = completion_quest.complete_quest()
+        expirience = completion_quest.complete_quest(success)
 
         self.__completed_quests.append(completion_quest.dump())
 
