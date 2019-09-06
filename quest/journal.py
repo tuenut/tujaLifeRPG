@@ -1,4 +1,4 @@
-from .quests import QuestTask
+from .quests import Quest
 
 
 class QuestJournal:
@@ -34,14 +34,14 @@ class QuestJournal:
     def quests_collection(self):
         return self.__quests_collection
 
-    def add_quest(self, quest_md5: str, quest_parameters: dict):
+    def __add_quest(self, quest_md5: str, quest_parameters: dict):
         self.__quests_collection.update({quest_md5: quest_parameters})
         return quest_md5
 
     def create_quest(self, **kwargs):
         # TODO может quest_id засунуть в dump и пусть dump отдает словарь типа {'%quest_id%': {**quest_parameters}}
-        quest = QuestTask(**kwargs)
-        self.add_quest(quest.quest_id, quest.dump())
+        quest = Quest(**kwargs)
+        self.__add_quest(quest.quest_id, quest.dump())
 
     def remove_quest(self, quest_md5):
         return self.__quests_collection.pop(quest_md5)
@@ -53,12 +53,12 @@ class QuestJournal:
             # TODO задачи нет в списке известных. Сначала создайте.
             raise
 
-        quest = QuestTask(**quest_parameters)
+        quest = Quest(**quest_parameters)
         self.__active_quests.append(quest)
 
-    def close_cuest(self, quest: QuestTask, success: bool):
+    def close_quest(self, quest: Quest, success: bool):
         quest_index = self.__active_quests.index(quest)
-        completion_quest = self.__active_quests.pop(quest_index)  # type: QuestTask
+        completion_quest = self.__active_quests.pop(quest_index)  # type: Quest
 
         expirience = completion_quest.complete_quest(success)
 

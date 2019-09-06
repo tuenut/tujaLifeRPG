@@ -1,6 +1,5 @@
-class TaskExpirienseMixin:
+class QuestExpirienseMixin:
     __BASE_EXPIRIENCE = 1.0
-    __difficulty = None
     date_manager = None
 
     @property

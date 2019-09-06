@@ -11,7 +11,7 @@ function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
-    height: 600,
+    height: 800,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
@@ -27,6 +27,9 @@ function createWindow() {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
+  // mainWindow.setMenuBarVisibility(false)
+
+
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {

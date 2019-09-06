@@ -4,19 +4,19 @@ from collections import OrderedDict
 from hashlib import md5
 
 from quest.date import DateManager
-from quest.expirience import TaskExpirienseMixin
+from quest.expirience import QuestExpirienseMixin
 
 
-class QuestTask(TaskExpirienseMixin):
-    def __init__(self, title, positive_motivation, negative_motivation, description=None, difficulty=None,
+class Quest(QuestExpirienseMixin):
+    def __init__(self, title, positive_motivation=None, negative_motivation=None, description=None, difficulty=None,
                  expiration_date=None, periodicity=None, **kwargs):
         self.__title = title
         self.__description = description or ''
 
         self.__difficulty = difficulty or 1.0
 
-        self.__positive_motivation_mult = positive_motivation
-        self.__negative_motivation_mult = negative_motivation
+        self.__positive_motivation_mult = positive_motivation or 0.0
+        self.__negative_motivation_mult = negative_motivation or 0.0
 
         self.date_manager = DateManager(expiration_date, **kwargs)
 

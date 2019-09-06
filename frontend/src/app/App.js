@@ -1,14 +1,8 @@
 import React from 'react';
-import logo from '../logo.svg';
 import '../App.css';
 import NavigationBar from './navbar';
 import Main from './mainview';
-
-function LeftPanel() {
-  return(
-    <div/>
-  );
-}
+import LeftPanel from './leftpanel';
 
 function App() {
   return (

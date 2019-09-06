@@ -20,9 +20,21 @@ class Character:
     def expirience(self):
         return self.__expirience_sub_system.expirience
 
-    def create_quest(self):
+    @property
+    def active_quests(self):
+        return self.__quest_journal.active_quests
+
+    @property
+    def completed_quests(self):
+        return self.__quest_journal.completed_quests
+
+    @property
+    def quests_collection(self):
+        return self.__quest_journal.quests_collection
+
+    def create_quest(self, title, **kwargs):
         """создать новый квест и поместить его в коллекцию квестов."""
-        self.__quest_journal.add_quest()
+        self.__quest_journal.create_quest(title=title, **kwargs)
 
     def get_quest(self):
         pass

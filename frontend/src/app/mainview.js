@@ -70,7 +70,7 @@ function StatsHeader() {
 
 function Main() {
   return (
-    <main className="col-12 col-xl-8 py-md-3 pl-md-5" role="main">
+    <main className="col-8 col-xl-8 py-md-3 pl-md-3" role="main">
 
       <StatsHeader/>
 
