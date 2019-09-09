@@ -19,8 +19,9 @@ class LeftPanel extends React.Component {
   }
 
   get_date() {
-    // let result = client.invoke("get_date", "RPC", function (error, res, more) {console.log(res);});
-    // this.setState({date: result})
+    window.API.client.invoke("get_date", (error, result, more) => {
+      this.setState({date: result});
+    });
   }
 
   render() {

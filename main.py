@@ -25,6 +25,9 @@ class ManagerRPC(object):
     def get_quest_collection(self):
         return self.__character.quests_collection
 
+    def get_date(self):
+        return dt.now().isoformat()
+
 s = zerorpc.Server(ManagerRPC())
 s.bind("tcp://127.0.0.1:4242")
 s.run()

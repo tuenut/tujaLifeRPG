@@ -29,8 +29,6 @@ function createWindow() {
   mainWindow.webContents.openDevTools()
   // mainWindow.setMenuBarVisibility(false)
 
-
-
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
@@ -38,6 +36,8 @@ function createWindow() {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  console.log(path.join(__dirname, 'preload.js'));
 }
 
 // This method will be called when Electron has finished

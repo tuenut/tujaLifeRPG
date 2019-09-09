@@ -36,6 +36,7 @@
   "main": "src/electron/main.js",
   "devDependencies": {
     "electron": "^6.0.0",
-    "electron-packager": "^14.0.4"
+    "electron-packager": "^14.0.4",
+    "electron-rebuild": "^1.8.6"
   }
 }
