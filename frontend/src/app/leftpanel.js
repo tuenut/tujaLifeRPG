@@ -5,23 +5,15 @@ class LeftPanel extends React.Component {
   constructor(props) {
     super(props)
     this.state = {date: 'Ничего не известно о времени'}
+    window.API.subscribe_get_date((result) => this.setState({date: result}))
   }
 
   componentDidMount() {
-    this.timerID = setInterval(
-      () => this.get_date(),
-      1000
-    );
+    this.timerID = setInterval(window.API.get_date, 1000);
   }
 
   componentWillUnmount() {
     clearInterval(this.timerID);
-  }
-
-  get_date() {
-    window.API.client.invoke("get_date", (error, result, more) => {
-      this.setState({date: result});
-    });
   }
 
   render() {
