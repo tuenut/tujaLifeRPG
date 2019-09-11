@@ -1,4 +1,5 @@
 import React from 'react';
+import LeftPanel from './leftpanel';
 
 function QuestItem() {
   return (
@@ -68,16 +69,30 @@ function StatsHeader() {
   );
 }
 
-function Main() {
-  return (
-    <main className="col-8 col-xl-8 py-md-3 pl-md-3" role="main">
+class Main extends React.Component {
+  constructor(props) {
+    super(props)
+  }
 
-      <StatsHeader/>
+  render() {
+    return (
+      <div className="container-fluid">
+        <div className="row flex-xl-nowrap justify-content-between">
 
-      <QuestJournal/>
+          <LeftPanel/>
 
-    </main>
-  );
+          <main className="col-8 col-xl-8 py-md-3 pl-md-3" role="main">
+
+            <StatsHeader/>
+
+            <QuestJournal/>
+
+          </main>
+
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Main;

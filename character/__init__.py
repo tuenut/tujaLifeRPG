@@ -44,3 +44,10 @@ class Character:
 
     def edit_quest(self):
         pass
+
+    def dump(self):
+        return {
+            'name': self.name,
+            'level': self.level,
+            'expirience': self.expirience,
+        }
