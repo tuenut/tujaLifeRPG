@@ -11,7 +11,7 @@ class ManagerRPC(object):
     def create_character(self, name):
         if self.__character is None:
             self.__character = Character(name)
-            return True
+            return name
         else:
             raise Exception("Character already exists!")
 

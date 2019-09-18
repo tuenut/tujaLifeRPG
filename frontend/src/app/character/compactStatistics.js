@@ -7,7 +7,9 @@ class CompactStatistics extends React.Component {
 
   render() {
     return (
-      <p className="card-text">Тут какая-то статистика.</p>
+      <div className={"alert alert-info my-3"}>
+        <p className="card-text">Some statistics.</p>
+      </div>
     );
   }
 }

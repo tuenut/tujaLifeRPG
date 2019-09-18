@@ -10,7 +10,7 @@ ipcMain.on('get_date', (event, arg) => {
 })
 
 ipcMain.on('create_character', (event, arg) => {
-  client.invoke('create_character', (error, res, more) => event.reply('create_character-reply', res));
+  client.invoke('create_character', arg, (error, res, more) => event.reply('create_character-reply', res));
 })
 
 ipcMain.on('get_character', (event, arg) => {

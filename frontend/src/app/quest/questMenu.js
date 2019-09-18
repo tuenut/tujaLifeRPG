@@ -2,18 +2,23 @@ import React from 'react';
 import QuestList from './questList'
 
 
-class QuestMenu extends React.Component{
+class QuestMenu extends React.Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      name: this.props.character,
+      quests: null,
+    };
   }
 
-  render(){
+  render() {
     return (<div className='card'>
         <div className="card-header">
-          список активных задач
+          Active quests
         </div>
         <div className="card-body">
-          <a href="#" className="btn btn-primary mb-3">Начать квест</a>
+          <a href="#" className="btn btn-primary mb-3">New quest</a>
           <QuestList/>
         </div>
       </div>
