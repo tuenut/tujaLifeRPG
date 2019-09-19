@@ -5,14 +5,28 @@ class StartNew extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {active: this.props.active}
+    this.state = {
+      active: this.props.active,
+      character_name: null,
+      create_character_callback: this.props.createNewCharacter,
+    }
 
     this.handleOnClick = this.handleOnClick.bind(this);
+    this.handleOnChange = this.handleOnChange.bind(this);
+    this.handleCreateCharacter = this.handleCreateCharacter.bind(this);
   }
 
   handleOnClick() {
     this.props.changeMode();
     this.setState({active: !this.state.active});
+  }
+
+  handleOnChange(event) {
+    this.setState({character_name: event.target.value})
+  }
+
+  handleCreateCharacter() {
+    this.state.create_character_callback(this.state.character_name);
   }
 
   render() {
@@ -22,11 +36,12 @@ class StartNew extends React.Component {
           this.state.active ? (
             <div>
               <div className={"row mb-3 mx-auto"}>
-                <input className={"form-control"} type={"text"} placeholder={"Enter your name"}/>
+                <input className={"form-control"} type={"text"} placeholder={"Enter your name"}
+                       value={this.state.character_name} onChange={this.handleOnChange}/>
               </div>
               <div className={"row "}>
                 <a href="#" className="btn btn-danger ml-auto mr-1" onClick={this.handleOnClick}>Back</a>
-                <a href="#" className="btn btn-success mr-auto ml-1" onClick={this.props.createNewCharacter}>Start</a>
+                <a href="#" className="btn btn-success mr-auto ml-1" onClick={this.handleCreateCharacter}>Start</a>
               </div>
             </div>
           ) : (
@@ -67,17 +82,19 @@ class MainMenu extends React.Component {
     this.setState({start_new: !this.state.start_new})
   }
 
-  createNewCharacter() {
+  createNewCharacter(name) {
     console.log('Send request to create character.');
+
     try {
-      window.API.get.create_character('tuenut')
+      window.API.get.create_character(name)
     } catch (e) {
-      this.props.setCharacterName('NewChar')
+      this.props.setCharacterName(name)
     }
   }
 
   getCharacter() {
     console.log('Send request to get character.');
+
     try {
       window.API.get.get_character()
     } catch (e) {
@@ -94,7 +111,8 @@ class MainMenu extends React.Component {
 
         <div className="card-body col">
           {!this.state.start_new && <Continue getCharacter={this.getCharacter}/>}
-          <StartNew active={this.state.start_new} createNewCharacter={this.createNewCharacter} changeMode={this.changeMode}/>
+          <StartNew active={this.state.start_new} createNewCharacter={this.createNewCharacter}
+                    changeMode={this.changeMode}/>
         </div>
       </div>
     );
