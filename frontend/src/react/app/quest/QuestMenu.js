@@ -1,10 +1,10 @@
 import React from 'react';
-import QuestList from './questList'
+import QuestList from './QuestList'
 
 
 class QuestMenu extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       name: this.props.character,
@@ -18,7 +18,7 @@ class QuestMenu extends React.Component {
           Active quests
         </div>
         <div className="card-body">
-          <a href="#" className="btn btn-primary mb-3">New quest</a>
+          <div className="btn btn-primary mb-3">New quest</div>
           <QuestList/>
         </div>
       </div>

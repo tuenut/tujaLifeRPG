@@ -1,13 +1,13 @@
 import React from 'react';
 import '../App.css';
-import NavigationBar from './navbar';
-import Main from './mainview';
+import NavigationBar from './NavigationBar';
+import MainView from './MainView';
 
 function App() {
   return (
     <div className="bg-light">
       <NavigationBar/>
-      <Main/>
+      <MainView/>
     </div>
   );
 }

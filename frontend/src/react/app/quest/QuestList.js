@@ -1,10 +1,10 @@
 import React from 'react';
-import QuestItem from './questItem';
+import QuestItem from './QuestItem';
 
 
 class QuestList extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render(){

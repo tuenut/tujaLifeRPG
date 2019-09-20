@@ -1,6 +1,6 @@
 import React from "react";
-import ExpirienceBar from './expirience';
-import CompactStatistics from './compactStatistics';
+import ExpirienceBar from './Expirience';
+import CompactStatistics from './CompactStatistics';
 
 
 class CharacterMenu extends React.Component {

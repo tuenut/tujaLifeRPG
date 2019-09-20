@@ -2,7 +2,7 @@ import React from 'react';
 
 class QuestItem extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {title: "Quest title"};
   }
@@ -12,8 +12,8 @@ class QuestItem extends React.Component {
       <li className={'list-group-item d-flex justify-content-between'}>
         <div>{this.state.title}</div>
         <div>
-          <a href="#" className="btn btn-success mx-1">Complete quest</a>
-          <a href="#" className="btn btn-danger mx-1">Delete quest</a>
+          <div className="btn btn-success mx-1">Complete quest</div>
+          <div className="btn btn-danger mx-1">Delete quest</div>
         </div>
       </li>
     );

@@ -6,13 +6,12 @@ class ExpirienceBar extends React.Component {
   }
 
   render() {
-    const expirience = this.props.expirience
     return (
       <div>
         <h5 className="card-title">Expirience</h5>
         <div className="progress">
-          <div className="progress-bar" role="progressbar" style={{width: expirience+"%"}} aria-valuenow={expirience}
-               aria-valuemin="0" aria-valuemax="100"/>
+          <div className="progress-bar" role="progressbar" style={{width: this.props.expirience+"%"}}
+               aria-valuenow={this.props.expirience} aria-valuemin="0" aria-valuemax="100"/>
         </div>
       </div>
     );

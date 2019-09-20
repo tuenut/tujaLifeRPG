@@ -1,11 +1,11 @@
 import React from "react";
-import QuestMenu from '../quest/questMenu';
-import CharacterMenu from '../character/characterMenu';
+import QuestMenu from '../quest/QuestMenu';
+import CharacterMenu from '../character/CharacterMenu';
 
 
 class GameView extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {

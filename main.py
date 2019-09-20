@@ -9,6 +9,8 @@ class ManagerRPC(object):
         self.__character = None  # type: Character
 
     def create_character(self, name):
+        print(name)
+
         if self.__character is None:
             self.__character = Character(name)
             return name
